@@ -8,7 +8,7 @@ const audit = {
 
     // What is the value of `this` when we call fn()?
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = 'global window object';
 
     return result;
   },
@@ -31,7 +31,7 @@ const audit = {
 
     // What is the value of `this` when we call data.verify())?
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = 'data';
 
     return result;
   },
@@ -54,7 +54,7 @@ const audit = {
 
     // What is the value of `this` when we call dog.bark();
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = 'global window object';
 
     return result;
   },
@@ -92,9 +92,12 @@ const audit = {
     // Log D: greeting
     greetingGenerator();
 
-    const result = [{
-      // 'ADD YOUR RESULT HERE';
-    }];
+    const result = [
+      {D: 'welcome'},
+      {A: 'hi'},
+      {B: 'hi'},
+      {C: 'hi'},
+    ];
 
     return result;
   },
@@ -109,7 +112,7 @@ const audit = {
   exerciseE() {
 
     var shoe = 'heel';
-    // Log A: 
+    // Log A: shoe
 
     function putOnShoe() {
       shoe = 'boot';
@@ -122,9 +125,12 @@ const audit = {
 
     // Log D: shoe
 
-    const result = [{
-      // 'ADD YOUR RESULT HERE';
-    }];
+    const result = [
+      {A: 'heel'},
+      {B: 'boot'},
+      {C: 'heel'},
+      {D: 'boot'},
+    ];
 
     return result;
   },
@@ -174,7 +180,7 @@ const audit = {
     // e.g.
     // ['Beckon', 'El Five', 'ChoLon', 'Super Mega Bien']
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = restaurants.map(restaurant => restaurant.name);
 
     return result;
   },
@@ -228,7 +234,9 @@ const audit = {
     //    ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = restaurants.map(restaurant => {
+      return { restaurant: restaurant.name, takeOut: restaurant.takeout };
+    });
 
     return result;
   },
@@ -282,7 +290,12 @@ const audit = {
     //    'Asian Fusion': ['ChoLon']
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = restaurants.reduce((acc, restaurant) => {
+      if (acc[restaurant.cuisine] === undefined)
+        acc[restaurant.cuisine] = [];
+      acc[restaurant.cuisine].push(restaurant.name);
+      return acc;
+    }, []);
 
     return result;
   },
@@ -318,7 +331,20 @@ const audit = {
     // Fill out functionality below. Your result variable (line 320) is already set up and does not need to be modified
 
     function alphabetWar(fight) {
-
+      const left = ['w', 'p', 'b', 's'];
+      const right = ['m', 'q', 'd', 'z'];
+      const result = fight.split('').reduce((acc, char) => {
+        left.forEach((l, i) => char === l ? acc -= (4 - i) : null); // null means "do nothing" here
+        right.forEach((r, i) => char === r ? acc += (4 - i) : null);
+        return acc;
+      }, 0);
+      if (result < 0) {
+        return 'Left side wins!';
+      } else if (result > 0) {
+        return 'Right side wins!';
+      } else {
+        return 'Let\'s fight again!';
+      }
     }
 
 
